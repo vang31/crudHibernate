@@ -6,7 +6,6 @@
 </head>
 <body>
 
-<table></table>
 <p th:text="${'Name: ' + user.getName()}">VALUE</p>
 <p th:text="${'Last name: ' + user.getLastName()}">VALUE</p>
 <p th:text="${'Age: ' + user.getAge()}">VALUE</p>
@@ -15,7 +14,7 @@
 <a th:href="@{/people/{id}/edit(id=${user.getId()})}">Edit</a>
 
 <form th:method="DELETE" th:action="@{/people/{id}(id=${user.getId()})}">
-    <input type="submit" value="Delete"/>
+            <input type="submit" value="Delete"/>
 </form>
 </body>
 </html>
