@@ -15,10 +15,10 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     // Метод, указывающий на класс конфигурации
     @Override
     protected Class<?>[] getRootConfigClasses() {
-//        return new Class[] {
-//                SpringConfig.class
-//        };
-        return null;
+        return new Class[] {
+                SpringConfig.class
+        };
+//        return null;
     }
 
 

@@ -11,6 +11,7 @@ import ru.viet.crud.hibernate.app.service.UserService;
 import ru.viet.crud.hibernate.app.model.User;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 
 @Controller
 @RequestMapping("/people")
@@ -24,13 +25,13 @@ public class UserController {
     }
 
     @GetMapping()
-    public String index(ModelMap model) {
+    public String index(ModelMap model) throws SQLException {
         model.addAttribute("user", userService.index());
         return "people/index";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, ModelMap model) {
+    public String show(@PathVariable("id") int id, ModelMap model) throws SQLException {
         model.addAttribute("user", userService.showUser(id));
         return "people/show";
     }
@@ -43,7 +44,7 @@ public class UserController {
 
     @PostMapping()
     public String create(@ModelAttribute("user") @Valid User user,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult) throws SQLException {
         if (bindingResult.hasErrors())
             return "people/new";
 
@@ -52,23 +53,22 @@ public class UserController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String edit(Model model, @PathVariable("id") int id) throws SQLException {
         model.addAttribute("user", userService.showUser(id));
         return "people/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) throws SQLException {
         if (bindingResult.hasErrors())
             return "people/edit";
 
-        userService.update(id, user);
+        userService.update(user);
         return "redirect:/people";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
+    public String delete(@PathVariable("id") int id) throws SQLException {
         userService.delete(id);
         return "redirect:/people";
     }
